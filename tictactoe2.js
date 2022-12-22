@@ -17,31 +17,46 @@ const GameBoard = function() {
         });
     };
 
-    const createBoard = function() {
-        const gameBoard = document.querySelector('#board');
-    
-        board.forEach((outerElem, outerIndex) => {
-            const row = document.createElement('div');
-            row.classList = "row";
-            outerElem.forEach((innerElem, innerIndex) => {
-                const square = document.createElement('div');
-                square.classList = "square";
-                square.setAttribute("id", "" + outerIndex + ", " + innerIndex);
-    
-                row.appendChild(square);
-            });
-    
-            gameBoard.appendChild(row);
-        });
-    };
-
     return {
         setSquare,
         getSquare,
         initializeBoard,
-        createBoard,
     }
 }
 
-const gameBoard = GameBoard();
+const displayController() {
+    const board = GameBoard();
+    board.initializeBoard();
+
+    let player = 1;
+
+    const createBoard = function() {
+        const gameBoard = document.querySelector('#board');
+    
+        board.forEach((outerElem, outerIndex) => {
+            outerElem.forEach((innerElem, innerIndex) => {
+                const square = document.createElement('div');
+                if (board.getSquare(outerElem, innerElem) == 0) {
+                    square.innerText = "";
+                } else if (board.getSquare(outerElem, innerElem) == 1) {
+                    square.innerText = "X";
+                } else {
+                    square.innerText = "O";
+                }
+                square.classList = "square";
+                square.setAttribute("id", "" + outerIndex + ", " + innerIndex);
+
+                square.addEventListener("click", (e) => {
+                    let source = e.target || e.srcElement;
+                    let coordArr = source.id.split(", ");
+                    coordArr[0] = parseInt(coordArr[0]);
+                    coordArr[1] = parseInt(coordArr[1]);
+                });
+    
+                gameBoard.appendChild(square);
+            });
+        });
+    };
+};
+
 
