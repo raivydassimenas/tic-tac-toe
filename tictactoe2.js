@@ -24,7 +24,7 @@ const GameBoard = function() {
     }
 }
 
-const displayController() {
+const displayController = function () {
     const board = GameBoard();
     board.initializeBoard();
 
