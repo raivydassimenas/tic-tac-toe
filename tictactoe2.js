@@ -78,9 +78,8 @@ const DisplayController = function () {
                 }
                 square.classList = "square";
                 square.setAttribute("id", "" + outerIndex + ", " + innerIndex);
-                if (board.getSquare(outerIndex, innerIndex)) {
+                if (board.getSquare(outerIndex, innerIndex) == 0) {
                     square.addEventListener("click", (e) => {
-                        let source = e.target || e.srcElement;
                         board.setSquere[outerElem][innerElem] = player;
                         if (checkWin(player)) {
                             if (player == 1) {
