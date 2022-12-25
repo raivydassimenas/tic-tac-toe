@@ -1,3 +1,6 @@
+let player1Score = 0;
+let player2Score = 0;
+
 const GameBoard = function () {
     let board = [[0, 0, 0], [0, 0, 0], [0, 0, 0]];
 
@@ -29,24 +32,31 @@ const DisplayController = function () {
     board.initializeBoard();
 
     let player = 1;
+    let playerToBegin = 1;
 
     const checkWin = function(player) {
-        if (board.getSquare(0, 0) && board.getSquare(0, 1) && board.getSquare(0, 2)) {
+        if (board.getSquare(0, 0) ==player && board.getSquare(0, 1) == player && board.getSquare(0, 2) == player) {
             return true;
         }
-        if (board.getSquare(1, 0) && board.getSquare(1, 1) && board.getSquare(1, 2)) {
+        if (board.getSquare(1, 0) == player && board.getSquare(1, 1) == player && board.getSquare(1, 2) == player) {
             return true;
         }
-        if (baord.getSquare(2, 0) && board.getSquare(2, 1) && board.getSquare(2, 2)) {
+        if (baord.getSquare(2, 0) == player && board.getSquare(2, 1) == player && board.getSquare(2, 2) == player) {
             return true;
         }
-        if (board.getSquare(0, 0) && board.getSquare(1, 0) && board.getSquare(2, )) {
+        if (board.getSquare(0, 0) == player && board.getSquare(1, 0) == player && board.getSquare(2, ) == player) {
             return true;
         }
-        if (board.getSquare(0, 1) && board.getSquare(1, 1) && board.getSquere(2, 1)) {
+        if (board.getSquare(0, 1) == player && board.getSquare(1, 1) == player && board.getSquere(2, 1) == player) {
             return true;
         }
-        if (board.getSquare(0, 2) && board.getSquare(1, 2) && board.getSquare(2, 2)) {
+        if (board.getSquare(0, 2) == player && board.getSquare(1, 2) == player && board.getSquare(2, 2) == player) {
+            return true;
+        }
+        if (board.getSquare(0, 0) == player && board.getSquare(1, 1) == player && board.getSquare(2, 2) == player) {
+            return true;
+        }
+        if (board.getSquare(0, 2) == player && board.getSquare(1, 1) == player && board.getSquare(2, 0) == player) {
             return true;
         }
 
@@ -72,8 +82,20 @@ const DisplayController = function () {
                     square.addEventListener("click", (e) => {
                         let source = e.target || e.srcElement;
                         board.setSquere[outerElem][innerElem] = player;
-                        player = player == 1 ? 2 : 1;
-                        this.renderBoard()
+                        if (checkWin(player)) {
+                            if (player == 1) {
+                                player1Score++;
+                            } else {
+                                player2Score++;
+                            }
+                            playerToBegin = playerToBegin == 1 ? 2 : 1;
+                            player = playerToBegin;
+                            board.initializeBoard();
+                            this.renderBoard();
+                        } else {
+                            player = player == 1 ? 2 : 1;
+                            this.renderBoard();
+                        }
                     });
                 }
 
