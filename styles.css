@@ -21,3 +21,11 @@
     font-size: 4rem;
     text-align: center;
 }
+
+#scoreBoard {
+    display: flex;
+    width: 20rem;
+    height: 5rem;
+    margin: auto;
+    justify-items: center;
+}

@@ -34,6 +34,14 @@ const DisplayController = function () {
     let player = 1;
     let playerToBegin = 1;
 
+    const updateScore = function() {
+        const player1ScoreSpan = document.querySelector("#player1Score");
+        const player2ScoreSpan = document.querySelector("#player2Score");
+
+        player1ScoreSpan.innerText = player1Score;
+        player2ScoreSpan.innerText = player2Score;
+    }
+
     const checkWin = function(player) {
         if (board.getSquare(0, 0) ==player && board.getSquare(0, 1) == player && board.getSquare(0, 2) == player) {
             return true;
@@ -90,6 +98,7 @@ const DisplayController = function () {
                             playerToBegin = playerToBegin == 1 ? 2 : 1;
                             player = playerToBegin;
                             board.initializeBoard();
+                            this.updateScore();
                             this.renderBoard();
                         } else {
                             player = player == 1 ? 2 : 1;
@@ -105,6 +114,7 @@ const DisplayController = function () {
 
     return {
         renderBoard,
+        updateScore,
     }
 };
 
