@@ -27,12 +27,22 @@ const GameBoard = function () {
     }
 }
 
-const displayController = function () {
+const DisplayController = function() {
     const board = GameBoard();
     board.initializeBoard();
 
     let player = 1;
     let playerToBegin = 1;
+
+    const newGameButton = document.querySelector("#newGame");
+    newGameButton.addEventListener("click", (e) => {
+        player = 1;
+        playerToBegin = 1;
+        player1Score = 0;
+        player2Score = 0;
+
+        this.renderBoard();
+    });
 
     const updateScore = function() {
         const player1ScoreSpan = document.querySelector("#player1Score");
