@@ -9,25 +9,34 @@
 #container {
     margin: 0 auto;
     display: flex;
-    height: 20rem;
+    flex-direction: column;
+    height: 25rem;
     width: 20rem;
-    justify-items: center;
+    justify-content: space-between;
     align-items: center;
 }
 
 .square {
     border: solid 1px #000000;
     font-weight: bold;
-    font-size: 4rem;
+    font-size: 3rem;
     text-align: center;
 }
 
 #scoreBoard {
     display: flex;
-    width: 20rem;
+    width: 25rem;
     height: 5rem;
-    margin: auto;
-    justify-items: center;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    gap: 0.5rem;
+    margin: 1rem;
+}
+
+h2 {
+    font-size: 1.5rem;
 }
 
 button {
@@ -38,4 +47,9 @@ button {
     text-align: center;
     text-decoration: none;
     font-size: 1.5rem;
+    margin: 1rem;
+}
+
+#player1Score, #player2Score {
+    color: #0000ff;
 }

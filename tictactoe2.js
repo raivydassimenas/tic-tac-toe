@@ -9,7 +9,7 @@ const GameBoard = function () {
   ];
 
   const setSquare = function (player, i, j) {
-    baord[i][j] = player;
+    board[i][j] = player;
   };
 
   const getSquare = function (i, j) {
@@ -24,10 +24,15 @@ const GameBoard = function () {
     });
   };
 
+  const getBoard = function () {
+    return board;
+  }
+
   return {
     setSquare,
     getSquare,
     initializeBoard,
+    getBoard,
   };
 };
 
@@ -44,8 +49,10 @@ const DisplayController = function () {
     playerToBegin = 1;
     player1Score = 0;
     player2Score = 0;
+    board.initializeBoard();
+    updateScore();
 
-    this.renderBoard();
+    renderBoard();
   });
 
   const updateScore = function () {
@@ -72,7 +79,7 @@ const DisplayController = function () {
       return true;
     }
     if (
-      baord.getSquare(2, 0) == player &&
+      board.getSquare(2, 0) == player &&
       board.getSquare(2, 1) == player &&
       board.getSquare(2, 2) == player
     ) {
@@ -81,14 +88,14 @@ const DisplayController = function () {
     if (
       board.getSquare(0, 0) == player &&
       board.getSquare(1, 0) == player &&
-      board.getSquare(2) == player
+      board.getSquare(2, 0) == player
     ) {
       return true;
     }
     if (
       board.getSquare(0, 1) == player &&
       board.getSquare(1, 1) == player &&
-      board.getSquere(2, 1) == player
+      board.getSquare(2, 1) == player
     ) {
       return true;
     }
@@ -119,13 +126,14 @@ const DisplayController = function () {
 
   const renderBoard = function () {
     const gameBoard = document.querySelector("#board");
+    gameBoard.innerHTML = "";
 
-    board.forEach((outerElem, outerIndex) => {
+    board.getBoard().forEach((outerElem, outerIndex) => {
       outerElem.forEach((innerElem, innerIndex) => {
         const square = document.createElement("div");
-        if (board.getSquare(outerElem, innerElem) == 0) {
+        if (board.getSquare(outerIndex, innerIndex) == 0) {
           square.innerText = "";
-        } else if (board.getSquare(outerElem, innerElem) == 1) {
+        } else if (board.getSquare(outerIndex, innerIndex) == 1) {
           square.innerText = "X";
         } else {
           square.innerText = "O";
@@ -134,7 +142,7 @@ const DisplayController = function () {
         square.setAttribute("id", "" + outerIndex + ", " + innerIndex);
         if (board.getSquare(outerIndex, innerIndex) == 0) {
           square.addEventListener("click", (e) => {
-            board.setSquere[outerElem][innerElem] = player;
+            board.setSquare(player, outerIndex, innerIndex);
             if (checkWin(player)) {
               if (player == 1) {
                 player1Score++;
@@ -144,15 +152,14 @@ const DisplayController = function () {
               playerToBegin = playerToBegin == 1 ? 2 : 1;
               player = playerToBegin;
               board.initializeBoard();
-              this.updateScore();
-              this.renderBoard();
+              updateScore();
+              renderBoard();
             } else {
               player = player == 1 ? 2 : 1;
-              this.renderBoard();
+              renderBoard();
             }
           });
         }
-
         gameBoard.appendChild(square);
       });
     });
