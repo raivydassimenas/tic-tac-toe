@@ -10,13 +10,18 @@
 <body>
     <div id="container">
         <div id="scoreBoard">
-            <h2>Player 1 </h2>
+            <h2 id="player1Name"></h2>
             <span id="player1Score"></span> : 
             <span id="player2Score"></span>
-            <h2> Player 2</h2>
+            <h2 id="player2Name"></h2>
         </div>
         <div id="board"></div>
         <button id="newGame">New Game</button>
+    </div>
+    <div class="names">
+        <input type="text" id="player1NameInput" placeholder="Player 1 name">
+        <input type="text" id="player2NameInput" placeholder="Player 2 name">
+        <button id="submitNames">Submit names</button>
     </div>
     
     <script src="./tictactoe2.js"></script>

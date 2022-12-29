@@ -50,6 +50,18 @@ button {
     margin: 1rem;
 }
 
+.names {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    margin: auto;
+}
+
 #player1Score, #player2Score {
     color: #0000ff;
+}
+
+input {
+    font-size: 1.5rem;
+    margin: 1rem;
 }

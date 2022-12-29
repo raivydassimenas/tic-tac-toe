@@ -1,5 +1,7 @@
 let player1Score = 0;
 let player2Score = 0;
+let player1Name = "Player 1";
+let player2Name = "Player 2";
 
 const GameBoard = function () {
   let board = [
@@ -37,6 +39,8 @@ const GameBoard = function () {
 };
 
 const DisplayController = function () {
+  document.querySelector("#player1Name").innerText = player1Name;
+  document.querySelector("#player2Name").innerText = player2Name;
   const board = GameBoard();
   board.initializeBoard();
 
@@ -53,6 +57,18 @@ const DisplayController = function () {
     updateScore();
 
     renderBoard();
+  });
+
+  const submitNamesButton = document.querySelector("#submitNames");
+  submitNamesButton.addEventListener("click", (e) => {
+    player1Name = document.querySelector("#player1NameInput").value;
+    player2Name = document.querySelector("#player2NameInput").value;
+    document.querySelector("#player1Name").innerText = player1Name;
+    document.querySelector("#player2Name").innerText = player2Name;
+
+    document.querySelector("#player1NameInput").style.display = 'none';
+    document.querySelector("#player2NameInput").style.display = 'none';
+    submitNamesButton.style.display = 'none';
   });
 
   const updateScore = function () {
