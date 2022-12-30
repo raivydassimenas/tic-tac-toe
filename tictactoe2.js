@@ -47,6 +47,16 @@ const DisplayController = function () {
   let player = 1;
   let playerToBegin = 1;
 
+  const updateScore = function () {
+    const player1ScoreSpan = document.querySelector("#player1Score");
+    const player2ScoreSpan = document.querySelector("#player2Score");
+
+    player1ScoreSpan.innerText = player1Score;
+    player2ScoreSpan.innerText = player2Score;
+  };
+
+  updateScore();
+
   const newGameButton = document.querySelector("#newGame");
   newGameButton.addEventListener("click", (e) => {
     player = 1;
@@ -70,14 +80,6 @@ const DisplayController = function () {
     document.querySelector("#player2NameInput").style.display = 'none';
     submitNamesButton.style.display = 'none';
   });
-
-  const updateScore = function () {
-    const player1ScoreSpan = document.querySelector("#player1Score");
-    const player2ScoreSpan = document.querySelector("#player2Score");
-
-    player1ScoreSpan.innerText = player1Score;
-    player2ScoreSpan.innerText = player2Score;
-  };
 
   const checkWin = function (player) {
     if (
@@ -140,6 +142,23 @@ const DisplayController = function () {
     return false;
   };
 
+  const checkDraw = function () {
+    if (
+        board.getSquare(0, 0) != 0 &&
+        board.getSquare(0, 1) != 0 &&
+        board.getSquare(0, 2) != 0 &&
+        board.getSquare(1, 0) != 0 &&
+        board.getSquare(1, 1) != 0 &&
+        board.getSquare(1, 2) != 0 &&
+        board.getSquare(2, 0) != 0 &&
+        board.getSquare(2, 1) != 0 &&
+        board.getSquare(2, 2) != 0
+    ) {
+        return true;
+    }
+    return false;
+  }
+
   const renderBoard = function () {
     const gameBoard = document.querySelector("#board");
     gameBoard.innerHTML = "";
@@ -162,14 +181,22 @@ const DisplayController = function () {
             if (checkWin(player)) {
               if (player == 1) {
                 player1Score++;
+                alert("" + player1Name + " won!");
               } else {
                 player2Score++;
+                alert("" + player2Name + " won!");
               }
               playerToBegin = playerToBegin == 1 ? 2 : 1;
               player = playerToBegin;
               board.initializeBoard();
               updateScore();
               renderBoard();
+            } else if (checkDraw()) {
+                alert("Draw!");  
+                playerToBegin = playerToBegin == 1 ? 2 : 1;
+                player = playerToBegin;
+                board.initializeBoard();
+                renderBoard();  
             } else {
               player = player == 1 ? 2 : 1;
               renderBoard();
